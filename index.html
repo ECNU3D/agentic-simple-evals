@@ -17,39 +17,44 @@
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
         }
         
         header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
-            padding: 40px 0;
+            margin-bottom: 30px;
+            padding: 60px 0 30px;
+            position: relative;
         }
         
-        .ascii-logo {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            white-space: pre;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.1);
-            padding: 20px;
-            border-radius: 10px;
-        }
+
         
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
         }
         
         .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.4;
         }
         
         .main-content {
@@ -223,6 +228,12 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .btn:hover {
@@ -348,6 +359,14 @@
             display: flex;
             margin-bottom: 20px;
             border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
         
         .tab {
@@ -355,6 +374,8 @@
             cursor: pointer;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .tab.active {
@@ -368,6 +389,75 @@
         
         .tab-content.active {
             display: block;
+        }
+        
+        .hero-github {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 200px;
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+        
+        .github-link {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            height: 44px;
+            box-sizing: border-box;
+        }
+        
+        .github-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .github-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            fill: currentColor;
         }
         
         .floating-btn {
@@ -392,26 +482,377 @@
         
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 15px;
+            }
+            
+            .hero-github {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .language-switcher {
+                top: 10px;
+                right: 140px;
+                gap: 4px;
+            }
+            
+                        .lang-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                height: 36px;
+                border-radius: 20px;
+                min-width: 40px;
+            }
+
+            .github-link {
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 20px;
+                height: 36px;
+            }
+            
+            .github-icon {
+                width: 14px;
+                height: 14px;
+                margin-right: 6px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+                margin-bottom: 12px;
+                margin-top: 15px;
+                line-height: 1.1;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+                padding: 0 10px;
+            }
+            
+            header {
+                padding: 40px 0 20px;
             }
             
             .main-content {
+                padding: 25px 20px;
+                border-radius: 15px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .tab {
+                padding: 12px 15px;
+                font-size: 14px;
+                text-align: center;
+                border-radius: 8px;
+            }
+            
+            .section h2 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .feature-card {
                 padding: 20px;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.1em;
+                margin-bottom: 10px;
             }
             
             .workflow-steps {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 10px;
+            }
+            
+            .step {
+                padding: 15px 10px;
+            }
+            
+            .step-number {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .step h4 {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+            
+            .step p {
+                font-size: 11px;
+                line-height: 1.3;
             }
             
             .demo-controls {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .control-group {
+                padding: 15px;
+            }
+            
+            .control-group h4 {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            select, input, textarea {
+                padding: 12px;
+                font-size: 14px;
+                border-radius: 8px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                border-radius: 8px;
+            }
+            
+            .benchmarks-table {
+                font-size: 11px;
+            }
+            
+            .benchmarks-table th,
+            .benchmarks-table td {
+                padding: 6px 4px;
+            }
+            
+            .model-support {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .model-card {
+                padding: 15px;
+            }
+            
+            .highlight {
+                padding: 15px;
+                font-size: 14px;
+                margin: 15px 0;
+            }
+            
+            .interactive-demo {
+                padding: 20px;
+            }
+            
+            .workflow-demo {
+                padding: 20px;
             }
         }
         
         @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .hero-github {
+                top: 8px;
+                right: 8px;
+            }
+            
+            .language-switcher {
+                top: 8px;
+                right: 100px;
+            }
+            
+            .lang-btn {
+                padding: 5px 7px;
+                font-size: 9px;
+                margin-left: 2px;
+            }
+            
+            .github-link {
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+            
+            .github-icon {
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 10px;
+                margin-top: 12px;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+                padding: 0 5px;
+            }
+            
+            header {
+                padding: 35px 0 15px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+            
+            .tabs {
+                gap: 3px;
+            }
+            
+            .tab {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            
+            .section h2 {
+                font-size: 1.2em;
+                margin-bottom: 12px;
+            }
+            
             .workflow-steps {
                 grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .step {
+                padding: 12px 8px;
+            }
+            
+            .step-number {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .step h4 {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+            
+            .step p {
+                font-size: 10px;
+                line-height: 1.2;
+            }
+            
+            .feature-card {
+                padding: 15px;
+            }
+            
+            .feature-card h3 {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+            
+            .feature-card p {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            
+            .control-group {
+                padding: 12px;
+            }
+            
+            .control-group h4 {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            select, input, textarea {
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            
+            .highlight {
+                padding: 12px;
+                font-size: 13px;
+                margin: 12px 0;
+            }
+            
+            .interactive-demo {
+                padding: 15px;
+            }
+            
+            .workflow-demo {
+                padding: 15px;
+            }
+            
+            .model-card h4 {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            
+            .model-card p {
+                font-size: 12px;
+                line-height: 1.3;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-switcher {
+                right: 120px;
+                gap: 3px;
+            }
+            
+            .lang-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+                height: 32px;
+                min-width: 35px;
+            }
+            
+            .github-link {
+                padding: 6px 10px;
+                font-size: 11px;
+                height: 32px;
+            }
+            
+            .github-icon {
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .language-switcher {
+                right: 110px;
+                gap: 2px;
+            }
+            
+            .lang-btn {
+                padding: 5px 8px;
+                font-size: 10px;
+                height: 28px;
+                min-width: 30px;
+            }
+            
+            .github-link {
+                padding: 5px 8px;
+                font-size: 10px;
+                height: 28px;
+            }
+            
+            .github-icon {
+                width: 10px;
+                height: 10px;
+                margin-right: 3px;
             }
         }
     </style>
@@ -419,87 +860,91 @@
 <body>
     <div class="container">
         <header>
-            <div class="ascii-logo">
-  ___                   _   _        _____ _                 _        _____           _     
- / _ \                 | | (_)      /  ___(_)               | |      |  ___|         | |    
-/ /_\ \ __ _  ___ _ __ | |_ _  ___  \ `--. _ _ __ ___  _ __ | | ___  | |____   ____ _| |___ 
-|  _  |/ _` |/ _ \ '_ \| __| |/ __|  `--. \ | '_ ` _ \| '_ \| |/ _ \ |  __\ \ / / _` | / __|
-| | | | (_| |  __/ | | | |_| | (__  /\__/ / | | | | | | |_) | |  __/ | |___\ V / (_| | \__ \
-\_| |_/\__, |\___|_| |_|\__|_|\___| \____/|_|_| |_| |_| .__/|_|\___| \____/ \_/ \__,_|_|___/
-        __/ |                                         | |                                   
-       |___/                                          |_|
+            <div class="language-switcher">
+                <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="switchLanguage('zh')">中文</button>
             </div>
-            <h1>Agentic Simple Evals</h1>
-            <p class="subtitle">AI-Powered Evaluation Generation Framework</p>
+            <div class="hero-github">
+                <a href="https://github.com/ECNU3D/agentic-simple-evals" target="_blank" class="github-link">
+                    <svg class="github-icon" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span data-translate="github-link">View on GitHub</span>
+                </a>
+            </div>
+            <h1 data-translate="main-title">Agentic Simple Evals</h1>
+            <p class="subtitle" data-translate="main-subtitle">AI-Powered Evaluation Generation Framework</p>
         </header>
 
         <div class="main-content">
             <div class="tabs">
-                <div class="tab active" data-tab="overview">🏠 Overview</div>
-                <div class="tab" data-tab="features">✨ Features</div>
-                <div class="tab" data-tab="demo">🚀 Interactive Demo</div>
-                <div class="tab" data-tab="workflow">⚙️ Workflow</div>
-                <div class="tab" data-tab="benchmarks">📊 Benchmarks</div>
+                <div class="tab active" data-tab="overview" data-translate="tab-overview">🏠 Overview</div>
+                <div class="tab" data-tab="features" data-translate="tab-features">✨ Features</div>
+                <div class="tab" data-tab="demo" data-translate="tab-demo">🚀 Interactive Demo</div>
+                <div class="tab" data-tab="workflow" data-translate="tab-workflow">⚙️ Workflow</div>
+                <div class="tab" data-tab="benchmarks" data-translate="tab-benchmarks">📊 Benchmarks</div>
             </div>
 
             <div class="tab-content active" id="overview">
                 <div class="section">
-                    <h2>🎯 What is Agentic Simple Evals?</h2>
-                    <p>Agentic Simple Evals is an advanced fork of OpenAI's simple-evals repository that introduces a powerful <strong>AI-powered evaluation generation system</strong>. Instead of manually writing evaluation code, our framework uses intelligent agents to automatically analyze datasets, understand their structure, and generate complete evaluation suites.</p>
+                    <h2 data-translate="overview-title">🎯 What is Agentic Simple Evals?</h2>
+                    <p data-translate="overview-desc">Agentic Simple Evals is an advanced fork of OpenAI's simple-evals repository that introduces a powerful <strong>AI-powered evaluation generation system</strong>. Instead of manually writing evaluation code, our framework uses intelligent agents to automatically analyze datasets, understand their structure, and generate complete evaluation suites.</p>
+                    
+                    <p style="margin-top: 15px;"><strong data-translate="overview-note">📝 Note:</strong> This project is a fork and enhancement of <a href="https://github.com/openai/simple-evals" target="_blank" style="color: #667eea; text-decoration: none; font-weight: bold;">OpenAI simple-evals</a> <span data-translate="overview-note-2">with several major enhancements and additions, while maintaining full backward compatibility with the original framework. The complete source code is available on</span> <a href="https://github.com/ECNU3D/agentic-simple-evals" target="_blank" style="color: #667eea; text-decoration: none; font-weight: bold;">GitHub</a>.</p>
                     
                     <div class="highlight">
-                        <strong>🔥 Key Innovation:</strong> Transform any HuggingFace dataset into a comprehensive evaluation suite in minutes, not hours!
+                        <strong data-translate="key-innovation">🔥 Key Innovation: Transform any HuggingFace dataset into a comprehensive evaluation suite in minutes, not hours!</strong>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2>🎨 Core Capabilities</h2>
+                    <h2 data-translate="core-capabilities">🎨 Core Capabilities</h2>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <h3>🔍 Automatic Dataset Analysis</h3>
-                            <p>Intelligently analyzes dataset structure, column types, and content patterns to understand the task at hand.</p>
+                            <h3 data-translate="auto-analysis">🔍 Automatic Dataset Analysis</h3>
+                            <p data-translate="auto-analysis-desc">Intelligently analyzes dataset structure, column types, and content patterns to understand the task at hand.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🎯 Smart Template Selection</h3>
-                            <p>Automatically selects the most appropriate evaluation template based on task type (MMLU, MATH, DROP, etc.).</p>
+                            <h3 data-translate="smart-template">🎯 Smart Template Selection</h3>
+                            <p data-translate="smart-template-desc">Automatically selects the most appropriate evaluation template based on task type (MMLU, MATH, DROP, etc.).</p>
                         </div>
                         <div class="feature-card">
-                            <h3>✍️ Custom Prompt Engineering</h3>
-                            <p>Generates task-specific prompts with full support for custom prompt templates and runtime customization.</p>
+                            <h3 data-translate="custom-prompt">✍️ Custom Prompt Engineering</h3>
+                            <p data-translate="custom-prompt-desc">Generates task-specific prompts with full support for custom prompt templates and runtime customization.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>📊 Flexible Scoring Methods</h3>
-                            <p>Supports multiple scoring strategies including exact match, fuzzy matching, mathematical equivalence, and LLM-based grading.</p>
+                            <h3 data-translate="flexible-scoring">📊 Flexible Scoring Methods</h3>
+                            <p data-translate="flexible-scoring-desc">Supports multiple scoring strategies including exact match, fuzzy matching, mathematical equivalence, and LLM-based grading.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>💻 Code Generation & Validation</h3>
-                            <p>Generates complete, runnable evaluation classes with automatic syntax validation and error handling.</p>
+                            <h3 data-translate="code-generation">💻 Code Generation & Validation</h3>
+                            <p data-translate="code-generation-desc">Generates complete, runnable evaluation classes with automatic syntax validation and error handling.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🔧 Enhanced Infrastructure</h3>
-                            <p>Robust checkpointing, batch processing, and support for multiple model providers (OpenAI, Anthropic, Google).</p>
+                            <h3 data-translate="enhanced-infra">🔧 Enhanced Infrastructure</h3>
+                            <p data-translate="enhanced-infra-desc">Robust checkpointing, batch processing, and support for multiple model providers (OpenAI, Anthropic, Google).</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2>🚀 Supported Model Providers</h2>
+                    <h2 data-translate="model-providers">🚀 Supported Model Providers</h2>
                     <div class="model-support">
                         <div class="model-card">
-                            <h4>OpenAI GPT</h4>
-                            <p>GPT-4, GPT-4-Turbo, GPT-3.5-Turbo with full API support</p>
+                            <h4 data-translate="openai-gpt">OpenAI GPT</h4>
+                            <p data-translate="openai-desc">GPT-4, GPT-4-Turbo, GPT-3.5-Turbo with full API support</p>
                         </div>
                         <div class="model-card">
-                            <h4>Anthropic Claude</h4>
-                            <p>Claude 3.5 Sonnet, Claude 3 Opus via direct API and Vertex AI</p>
+                            <h4 data-translate="anthropic-claude">Anthropic Claude</h4>
+                            <p data-translate="anthropic-desc">Claude 3.5 Sonnet, Claude 3 Opus via direct API and Vertex AI</p>
                         </div>
                         <div class="model-card">
-                            <h4>Google Gemini</h4>
-                            <p>Gemini Pro, Gemini Flash with grounding capabilities</p>
+                            <h4 data-translate="google-gemini">Google Gemini</h4>
+                            <p data-translate="google-desc">Gemini Pro, Gemini Flash with grounding capabilities</p>
                         </div>
                         <div class="model-card">
-                            <h4>Vertex AI</h4>
-                            <p>Unified access to multiple models through Google Cloud</p>
+                            <h4 data-translate="vertex-ai">Vertex AI</h4>
+                            <p data-translate="vertex-desc">Unified access to multiple models through Google Cloud</p>
                         </div>
                     </div>
                 </div>
@@ -507,61 +952,61 @@
 
             <div class="tab-content" id="features">
                 <div class="section">
-                    <h2>🎯 Supported Task Types</h2>
+                    <h2 data-translate="supported-task-types">🎯 Supported Task Types</h2>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <h3>📚 Multiple Choice (MMLU-style)</h3>
-                            <p>Perfect for knowledge-based evaluations with choice extraction and scoring.</p>
+                            <h3 data-translate="multiple-choice">📚 Multiple Choice (MMLU-style)</h3>
+                            <p data-translate="multiple-choice-desc">Perfect for knowledge-based evaluations with choice extraction and scoring.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🧮 Mathematical Problems (MATH-style)</h3>
-                            <p>Mathematical problem solving with numerical scoring and equivalence checking.</p>
+                            <h3 data-translate="math-problems">🧮 Mathematical Problems (MATH-style)</h3>
+                            <p data-translate="math-problems-desc">Mathematical problem solving with numerical scoring and equivalence checking.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>📖 Reading Comprehension (DROP-style)</h3>
-                            <p>Context-based question answering with passage understanding.</p>
+                            <h3 data-translate="reading-comprehension">📖 Reading Comprehension (DROP-style)</h3>
+                            <p data-translate="reading-comprehension-desc">Context-based question answering with passage understanding.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>💻 Code Generation (HumanEval-style)</h3>
-                            <p>Programming tasks with code execution and validation.</p>
+                            <h3 data-translate="code-gen">💻 Code Generation (HumanEval-style)</h3>
+                            <p data-translate="code-gen-desc">Programming tasks with code execution and validation.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>❓ Factual Q&A (SimpleQA-style)</h3>
-                            <p>Factual questions with precise answer matching.</p>
+                            <h3 data-translate="factual-qa">❓ Factual Q&A (SimpleQA-style)</h3>
+                            <p data-translate="factual-qa-desc">Factual questions with precise answer matching.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>📝 Text Generation</h3>
-                            <p>Open-ended text generation with flexible scoring methods.</p>
+                            <h3 data-translate="text-generation">📝 Text Generation</h3>
+                            <p data-translate="text-generation-desc">Open-ended text generation with flexible scoring methods.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2>⚙️ Advanced Features</h2>
+                    <h2 data-translate="advanced-features">⚙️ Advanced Features</h2>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <h3>🔄 Batch Processing</h3>
-                            <p>Configurable batch sizes for memory management and efficient processing.</p>
+                            <h3 data-translate="batch-processing">🔄 Batch Processing</h3>
+                            <p data-translate="batch-processing-desc">Configurable batch sizes for memory management and efficient processing.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>💾 Checkpointing System</h3>
-                            <p>Resume interrupted evaluations with robust checkpoint loading and saving.</p>
+                            <h3 data-translate="checkpointing">💾 Checkpointing System</h3>
+                            <p data-translate="checkpointing-desc">Resume interrupted evaluations with robust checkpoint loading and saving.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🛡️ Error Handling</h3>
-                            <p>Comprehensive error recovery with graceful fallbacks and retry mechanisms.</p>
+                            <h3 data-translate="error-handling">🛡️ Error Handling</h3>
+                            <p data-translate="error-handling-desc">Comprehensive error recovery with graceful fallbacks and retry mechanisms.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🔧 Windows Compatibility</h3>
-                            <p>Fixed Windows-specific issues with threading-based timeout solutions.</p>
+                            <h3 data-translate="windows-compat">🔧 Windows Compatibility</h3>
+                            <p data-translate="windows-compat-desc">Fixed Windows-specific issues with threading-based timeout solutions.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>📊 Progress Tracking</h3>
-                            <p>Real-time progress reporting with detailed logging throughout evaluation.</p>
+                            <h3 data-translate="progress-tracking">📊 Progress Tracking</h3>
+                            <p data-translate="progress-tracking-desc">Real-time progress reporting with detailed logging throughout evaluation.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🎨 Custom Templates</h3>
-                            <p>Full support for custom prompt templates with variable substitution.</p>
+                            <h3 data-translate="custom-templates">🎨 Custom Templates</h3>
+                            <p data-translate="custom-templates-desc">Full support for custom prompt templates with variable substitution.</p>
                         </div>
                     </div>
                 </div>
@@ -569,14 +1014,14 @@
 
             <div class="tab-content" id="demo">
                 <div class="section">
-                    <h2>🎮 Interactive Demo</h2>
-                    <p>Experience the power of automatic evaluation generation with our interactive demo. Configure your dataset and see the magic happen!</p>
+                    <h2 data-translate="interactive-demo">🎮 Interactive Demo</h2>
+                    <p data-translate="demo-desc">Experience the power of automatic evaluation generation with our interactive demo. Configure your dataset and see the magic happen!</p>
                     
                     <div class="interactive-demo">
                         <div class="demo-controls">
                             <div class="control-group">
-                                <h4>📚 Dataset Configuration</h4>
-                                <label>Dataset Name:</label>
+                                <h4 data-translate="dataset-config">📚 Dataset Configuration</h4>
+                                <label data-translate="dataset-name">Dataset Name:</label>
                                 <select id="datasetSelect">
                                     <option value="rag-datasets/rag-mini-wikipedia">RAG Mini Wikipedia</option>
                                     <option value="cais/mmlu">MMLU</option>
@@ -587,10 +1032,10 @@
                                 </select>
                                 <input type="text" id="customDataset" placeholder="Enter custom dataset name" style="display:none;">
                                 
-                                <label>Subset/Config:</label>
+                                <label data-translate="subset">Subset:</label>
                                 <input type="text" id="subsetInput" placeholder="e.g., question-answer">
                                 
-                                <label>Split:</label>
+                                <label data-translate="split">Split:</label>
                                 <select id="splitSelect">
                                     <option value="test">test</option>
                                     <option value="validation">validation</option>
@@ -599,8 +1044,8 @@
                             </div>
 
                             <div class="control-group">
-                                <h4>🎯 Task Configuration</h4>
-                                <label>Task Type:</label>
+                                <h4 data-translate="task-settings">🎯 Task Settings</h4>
+                                <label data-translate="task-type">Task Type:</label>
                                 <select id="taskType">
                                     <option value="auto">Auto-detect</option>
                                     <option value="multiple_choice">Multiple Choice</option>
@@ -611,7 +1056,7 @@
                                     <option value="text_generation">Text Generation</option>
                                 </select>
                                 
-                                <label>Scoring Method:</label>
+                                <label data-translate="scoring-method">Scoring Method:</label>
                                 <select id="scoringMethod">
                                     <option value="auto">Auto-select</option>
                                     <option value="exact_match">Exact Match</option>
@@ -623,24 +1068,24 @@
                             </div>
 
                             <div class="control-group">
-                                <h4>✍️ Prompt Template</h4>
+                                <h4 data-translate="prompt-templates">✍️ Prompt Templates</h4>
                                 <textarea id="promptTemplate" rows="4" placeholder="Leave blank for auto-generated prompt">Question: {question}
 Answer:</textarea>
                                 
                                 <div class="checkbox-container">
                                     <input type="checkbox" id="interactiveMode">
-                                    <label for="interactiveMode">Interactive Mode</label>
+                                    <label for="interactiveMode" data-translate="interactive-mode">Interactive Mode</label>
                                 </div>
                             </div>
                         </div>
 
                         <div style="text-align: center; margin: 30px 0;">
-                            <button class="btn" onclick="startDemo()">🚀 Generate Evaluation</button>
-                            <button class="btn" onclick="resetDemo()" style="margin-left: 10px; background: #6c757d;">🔄 Reset</button>
+                            <button class="btn" onclick="startDemo()" data-translate="generate-eval">🚀 Generate Evaluation</button>
+                            <button class="btn" onclick="resetDemo()" style="margin-left: 10px; background: #6c757d;" data-translate="reset-demo">🔄 Reset Demo</button>
                         </div>
 
                         <div id="progressSection" style="display: none;">
-                            <h4>Progress:</h4>
+                            <h4 data-translate="progress">Progress:</h4>
                             <div class="progress-bar">
                                 <div class="progress-fill" id="progressFill"></div>
                             </div>
@@ -658,58 +1103,58 @@ Answer:</textarea>
 
             <div class="tab-content" id="workflow">
                 <div class="section">
-                    <h2>⚙️ End-to-End Workflow</h2>
-                    <p>Our agentic system follows a sophisticated 8-step process to transform any dataset into a comprehensive evaluation suite:</p>
+                    <h2 data-translate="workflow-title">⚙️ 8-Step Agentic Workflow</h2>
+                    <p data-translate="workflow-desc">Our intelligent system follows a systematic 8-step process to generate high-quality evaluations:</p>
                     
                     <div class="workflow-demo">
                         <div class="workflow-steps">
                             <div class="step">
                                 <div class="step-number">1</div>
-                                <h4>🔍 Dataset Analysis</h4>
-                                <p>Analyze structure, columns, and content patterns</p>
+                                <h4 data-translate="step1">🔍 Dataset Analysis</h4>
+                                <p data-translate="step1-desc">Analyze structure and patterns</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">2</div>
-                                <h4>🎯 Task Detection</h4>
-                                <p>Determine appropriate evaluation approach</p>
+                                <h4 data-translate="step2">🎯 Task Detection</h4>
+                                <p data-translate="step2-desc">Identify evaluation type</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">3</div>
-                                <h4>🗂️ Column Mapping</h4>
-                                <p>Map dataset columns to template variables</p>
+                                <h4 data-translate="step3">🗂️ Column Mapping</h4>
+                                <p data-translate="step3-desc">Map data to variables</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">4</div>
-                                <h4>✍️ Prompt Engineering</h4>
-                                <p>Generate task-specific prompts</p>
+                                <h4 data-translate="step4">✍️ Prompt Engineering</h4>
+                                <p data-translate="step4-desc">Generate optimal prompts</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">5</div>
-                                <h4>⚖️ Scoring Strategy</h4>
-                                <p>Select appropriate scoring methods</p>
+                                <h4 data-translate="step5">⚖️ Scoring Strategy</h4>
+                                <p data-translate="step5-desc">Select scoring method</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">6</div>
-                                <h4>💻 Code Generation</h4>
-                                <p>Create complete evaluation class</p>
+                                <h4 data-translate="step6">💻 Code Generation</h4>
+                                <p data-translate="step6-desc">Create evaluation class</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">7</div>
-                                <h4>✅ Validation</h4>
-                                <p>Validate and fix generated code</p>
+                                <h4 data-translate="step7">✅ Validation</h4>
+                                <p data-translate="step7-desc">Test and verify code</p>
                             </div>
                             <div class="step">
                                 <div class="step-number">8</div>
-                                <h4>📋 Registration</h4>
-                                <p>Save and register for immediate use</p>
+                                <h4 data-translate="step8">📋 Registration</h4>
+                                <p data-translate="step8-desc">Register in framework</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2>💻 Example Generated Code</h2>
-                    <p>Here's what our system generates for a typical dataset:</p>
+                    <h2 data-translate="example-code-title">💻 Example Generated Code</h2>
+                    <p data-translate="example-code-desc">Here's what our system generates for a typical dataset:</p>
                     
                     <div class="code-block">
 <span style="color: #f59e0b;">import</span> <span style="color: #10b981;">random</span><br>
@@ -785,14 +1230,14 @@ Answer:</textarea>
 
             <div class="tab-content" id="benchmarks">
                 <div class="section">
-                    <h2>📊 Benchmark Results</h2>
-                    <p>Our framework supports all major evaluation benchmarks with state-of-the-art model performance:</p>
+                    <h2 data-translate="benchmarks-title">📊 Benchmark Results</h2>
+                    <p data-translate="benchmarks-desc">Performance comparison of the latest language models across multiple evaluation benchmarks:</p>
                     
                     <div class="benchmark-table">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Model</th>
+                                    <th data-translate="model">Model</th>
                                     <th>MMLU</th>
                                     <th>GPQA</th>
                                     <th>MATH</th>
@@ -869,23 +1314,23 @@ Answer:</textarea>
                 </div>
 
                 <div class="section">
-                    <h2>🎯 Framework Advantages</h2>
+                    <h2 data-translate="framework-advantages">🎯 Framework Advantages</h2>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <h3>⚡ Speed</h3>
-                            <p>Generate evaluations in minutes instead of hours of manual coding.</p>
+                            <h3 data-translate="speed">⚡ Speed</h3>
+                            <p data-translate="speed-desc">Generate evaluations in minutes instead of hours of manual coding.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🎯 Accuracy</h3>
-                            <p>AI agents ensure proper task detection and scoring method selection.</p>
+                            <h3 data-translate="accuracy">🎯 Accuracy</h3>
+                            <p data-translate="accuracy-desc">AI agents ensure proper task detection and scoring method selection.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>🔧 Flexibility</h3>
-                            <p>Support for custom prompts, scoring methods, and dataset configurations.</p>
+                            <h3 data-translate="flexibility">🔧 Flexibility</h3>
+                            <p data-translate="flexibility-desc">Support for custom prompts, scoring methods, and dataset configurations.</p>
                         </div>
                         <div class="feature-card">
-                            <h3>📈 Scalability</h3>
-                            <p>Batch processing and checkpointing for large-scale evaluations.</p>
+                            <h3 data-translate="scalability">📈 Scalability</h3>
+                            <p data-translate="scalability-desc">Batch processing and checkpointing for large-scale evaluations.</p>
                         </div>
                     </div>
                 </div>
@@ -896,6 +1341,291 @@ Answer:</textarea>
     <button class="floating-btn" onclick="scrollToTop()" title="Back to top">↑</button>
 
     <script>
+        // Translation data
+        const translations = {
+            en: {
+                'main-title': 'Agentic Simple Evals',
+                'main-subtitle': 'AI-Powered Evaluation Generation Framework',
+                'github-link': 'View on GitHub',
+                'tab-overview': '🏠 Overview',
+                'tab-features': '✨ Features', 
+                'tab-demo': '🚀 Interactive Demo',
+                'tab-workflow': '⚙️ Workflow',
+                'tab-benchmarks': '📊 Benchmarks',
+                'overview-title': '🎯 What is Agentic Simple Evals?',
+                'overview-desc': 'Agentic Simple Evals is an advanced fork of OpenAI\'s simple-evals repository that introduces a powerful AI-powered evaluation generation system. Instead of manually writing evaluation code, our framework uses intelligent agents to automatically analyze datasets, understand their structure, and generate complete evaluation suites.',
+                'overview-note': '📝 Note: This project is a fork and enhancement of',
+                'overview-note-2': 'with several major enhancements and additions, while maintaining full backward compatibility with the original framework. The complete source code is available on',
+                'key-innovation': '🔥 Key Innovation: Transform any HuggingFace dataset into a comprehensive evaluation suite in minutes, not hours!',
+                'core-capabilities': '🎨 Core Capabilities',
+                'auto-analysis': '🔍 Automatic Dataset Analysis',
+                'auto-analysis-desc': 'Intelligently analyzes dataset structure, column types, and content patterns to understand the task at hand.',
+                'smart-template': '🎯 Smart Template Selection',
+                'smart-template-desc': 'Automatically selects the most appropriate evaluation template based on task type (MMLU, MATH, DROP, etc.).',
+                'custom-prompt': '✍️ Custom Prompt Engineering',
+                'custom-prompt-desc': 'Generates task-specific prompts with full support for custom prompt templates and runtime customization.',
+                'flexible-scoring': '📊 Flexible Scoring Methods',
+                'flexible-scoring-desc': 'Supports multiple scoring strategies including exact match, fuzzy matching, mathematical equivalence, and LLM-based grading.',
+                'code-generation': '💻 Code Generation & Validation',
+                'code-generation-desc': 'Generates complete, runnable evaluation classes with automatic syntax validation and error handling.',
+                'enhanced-infra': '🔧 Enhanced Infrastructure',
+                'enhanced-infra-desc': 'Robust checkpointing, batch processing, and support for multiple model providers (OpenAI, Anthropic, Google).',
+                'model-providers': '🚀 Supported Model Providers',
+                'openai-gpt': 'OpenAI GPT',
+                'openai-desc': 'GPT-4, GPT-4-Turbo, GPT-3.5-Turbo with full API support',
+                'anthropic-claude': 'Anthropic Claude',
+                'anthropic-desc': 'Claude 3.5 Sonnet, Claude 3 Opus via direct API and Vertex AI',
+                'google-gemini': 'Google Gemini',
+                'google-desc': 'Gemini Pro, Gemini Flash with grounding capabilities',
+                'vertex-ai': 'Vertex AI',
+                'vertex-desc': 'Unified access to multiple models through Google Cloud',
+                'supported-task-types': '🎯 Supported Task Types',
+                'multiple-choice': '📚 Multiple Choice (MMLU-style)',
+                'multiple-choice-desc': 'Perfect for knowledge-based evaluations with choice extraction and scoring.',
+                'math-problems': '🧮 Mathematical Problems (MATH-style)',
+                'math-problems-desc': 'Mathematical problem solving with numerical scoring and equivalence checking.',
+                'reading-comprehension': '📖 Reading Comprehension (DROP-style)',
+                'reading-comprehension-desc': 'Context-based question answering with passage understanding.',
+                'code-gen': '💻 Code Generation (HumanEval-style)',
+                'code-gen-desc': 'Programming tasks with code execution and validation.',
+                'factual-qa': '❓ Factual Q&A (SimpleQA-style)',
+                'factual-qa-desc': 'Factual questions with precise answer matching.',
+                'text-generation': '📝 Text Generation',
+                'text-generation-desc': 'Open-ended text generation with flexible scoring methods.',
+                'advanced-features': '⚙️ Advanced Features',
+                'batch-processing': '🔄 Batch Processing',
+                'batch-processing-desc': 'Configurable batch sizes for memory management and efficient processing.',
+                'checkpointing': '💾 Checkpointing System',
+                'checkpointing-desc': 'Resume interrupted evaluations with robust checkpoint loading and saving.',
+                'error-handling': '🛡️ Error Handling',
+                'error-handling-desc': 'Comprehensive error recovery with graceful fallbacks and retry mechanisms.',
+                'windows-compat': '🔧 Windows Compatibility',
+                'windows-compat-desc': 'Fixed Windows-specific issues with threading-based timeout solutions.',
+                'progress-tracking': '📊 Progress Tracking',
+                'progress-tracking-desc': 'Real-time progress reporting with detailed logging throughout evaluation.',
+                'custom-templates': '🎨 Custom Templates',
+                'custom-templates-desc': 'Full support for custom prompt templates with variable substitution.',
+                'interactive-demo': '🎮 Interactive Demo',
+                'demo-desc': 'Experience the power of automatic evaluation generation with our interactive demo. Configure your dataset and see the magic happen!',
+                'dataset-config': '📚 Dataset Configuration',
+                'dataset-name': 'Dataset Name:',
+                'task-settings': '🎯 Task Settings',
+                'subset': 'Subset:',
+                'split': 'Split:',
+                'task-type': 'Task Type:',
+                'scoring-method': 'Scoring Method:',
+                'prompt-templates': '✍️ Prompt Templates',
+                'prompt-template': 'Prompt Template:',
+                'interactive-mode': 'Interactive Mode',
+                'generation-controls': '🚀 Generation Controls',
+                'generate-eval': 'Generate Evaluation',
+                'reset-demo': 'Reset Demo',
+                'progress': 'Progress:',
+                'ready-to-start': 'Ready to start...',
+                'workflow-title': '⚙️ 8-Step Agentic Workflow',
+                'workflow-desc': 'Our intelligent system follows a systematic 8-step process to generate high-quality evaluations:',
+                'step1': 'Dataset Analysis',
+                'step1-desc': 'Analyze structure and patterns',
+                'step2': 'Task Detection',
+                'step2-desc': 'Identify evaluation type',
+                'step3': 'Column Mapping',
+                'step3-desc': 'Map data to variables',
+                'step4': 'Prompt Engineering',
+                'step4-desc': 'Generate optimal prompts',
+                'step5': 'Scoring Strategy',
+                'step5-desc': 'Select scoring method',
+                'step6': 'Code Generation',
+                'step6-desc': 'Create evaluation class',
+                'step7': 'Validation',
+                'step7-desc': 'Test and verify code',
+                'step8': 'Registration',
+                'step8-desc': 'Register in framework',
+                'benchmarks-title': '📊 Benchmark Results',
+                'benchmarks-desc': 'Performance comparison of the latest language models across multiple evaluation benchmarks:',
+                'model': 'Model',
+                'prompt': 'Prompt',
+                'assistant': 'assistant',
+                'example-code-title': '💻 Example Generated Code',
+                'example-code-desc': 'Here\'s what our system generates for a typical dataset:',
+                'framework-advantages': '🎯 Framework Advantages',
+                'speed': '⚡ Speed',
+                'speed-desc': 'Generate evaluations in minutes instead of hours of manual coding.',
+                'accuracy': '🎯 Accuracy',
+                'accuracy-desc': 'AI agents ensure proper task detection and scoring method selection.',
+                'flexibility': '🔧 Flexibility',
+                'flexibility-desc': 'Support for custom prompts, scoring methods, and dataset configurations.',
+                'scalability': '📈 Scalability',
+                'scalability-desc': 'Batch processing and checkpointing for large-scale evaluations.'
+            },
+            zh: {
+                'main-title': 'Agentic Simple Evals',
+                'main-subtitle': 'AI驱动的评估生成框架',
+                'github-link': '在GitHub上查看',
+                'tab-overview': '🏠 概览',
+                'tab-features': '✨ 功能特性',
+                'tab-demo': '🚀 交互演示',
+                'tab-workflow': '⚙️ 工作流程',
+                'tab-benchmarks': '📊 基准测试',
+                'overview-title': '🎯 什么是 Agentic Simple Evals？',
+                'overview-desc': 'Agentic Simple Evals 是 OpenAI simple-evals 仓库的高级分支，引入了强大的AI驱动评估生成系统。我们的框架不需要手动编写评估代码，而是使用智能代理自动分析数据集，理解其结构，并生成完整的评估套件。',
+                'overview-note': '📝 注意：本项目是',
+                'overview-note-2': '的分支和增强版本，具有多项重大改进和新增功能，同时保持与原始框架的完全向后兼容性。完整源代码可在',
+                'key-innovation': '🔥 核心创新：将任何HuggingFace数据集在几分钟内（而不是几小时）转换为综合评估套件！',
+                'core-capabilities': '🎨 核心能力',
+                'auto-analysis': '🔍 自动数据集分析',
+                'auto-analysis-desc': '智能分析数据集结构、列类型和内容模式，理解当前任务。',
+                'smart-template': '🎯 智能模板选择',
+                'smart-template-desc': '根据任务类型（MMLU、MATH、DROP等）自动选择最合适的评估模板。',
+                'custom-prompt': '✍️ 自定义提示工程',
+                'custom-prompt-desc': '生成特定任务的提示，完全支持自定义提示模板和运行时定制。',
+                'flexible-scoring': '📊 灵活评分方法',
+                'flexible-scoring-desc': '支持多种评分策略，包括精确匹配、模糊匹配、数学等价性和基于LLM的评分。',
+                'code-generation': '💻 代码生成与验证',
+                'code-generation-desc': '生成完整的可运行评估类，具有自动语法验证和错误处理功能。',
+                'enhanced-infra': '🔧 增强基础设施',
+                'enhanced-infra-desc': '强大的检查点功能、批处理和对多个模型提供商的支持（OpenAI、Anthropic、Google）。',
+                'model-providers': '🚀 支持的模型提供商',
+                'openai-gpt': 'OpenAI GPT',
+                'openai-desc': '完整API支持的GPT-4、GPT-4-Turbo、GPT-3.5-Turbo',
+                'anthropic-claude': 'Anthropic Claude',
+                'anthropic-desc': '通过直接API和Vertex AI访问Claude 3.5 Sonnet、Claude 3 Opus',
+                'google-gemini': 'Google Gemini',
+                'google-desc': '具有基础能力的Gemini Pro、Gemini Flash',
+                'vertex-ai': 'Vertex AI',
+                'vertex-desc': '通过Google Cloud统一访问多个模型',
+                'supported-task-types': '🎯 支持的任务类型',
+                'multiple-choice': '📚 多项选择题 (MMLU风格)',
+                'multiple-choice-desc': '完美适用于基于知识的评估，具有选项提取和评分功能。',
+                'math-problems': '🧮 数学问题 (MATH风格)',
+                'math-problems-desc': '数学问题求解，具有数值评分和等价性检查。',
+                'reading-comprehension': '📖 阅读理解 (DROP风格)',
+                'reading-comprehension-desc': '基于上下文的问答，具有段落理解能力。',
+                'code-gen': '💻 代码生成 (HumanEval风格)',
+                'code-gen-desc': '编程任务，具有代码执行和验证功能。',
+                'factual-qa': '❓ 事实问答 (SimpleQA风格)',
+                'factual-qa-desc': '事实性问题，具有精确答案匹配。',
+                'text-generation': '📝 文本生成',
+                'text-generation-desc': '开放式文本生成，具有灵活的评分方法。',
+                'advanced-features': '⚙️ 高级功能',
+                'batch-processing': '🔄 批处理',
+                'batch-processing-desc': '可配置的批处理大小，用于内存管理和高效处理。',
+                'checkpointing': '💾 检查点系统',
+                'checkpointing-desc': '通过强大的检查点加载和保存功能恢复中断的评估。',
+                'error-handling': '🛡️ 错误处理',
+                'error-handling-desc': '全面的错误恢复，具有优雅的回退和重试机制。',
+                'windows-compat': '🔧 Windows兼容性',
+                'windows-compat-desc': '通过基于线程的超时解决方案修复Windows特定问题。',
+                'progress-tracking': '📊 进度跟踪',
+                'progress-tracking-desc': '实时进度报告，在整个评估过程中提供详细日志。',
+                'custom-templates': '🎨 自定义模板',
+                'custom-templates-desc': '完全支持带有变量替换的自定义提示模板。',
+                'interactive-demo': '🎮 交互演示',
+                'demo-desc': '通过我们的交互式演示体验自动评估生成的强大功能。配置您的数据集，见证神奇的效果！',
+                'dataset-config': '📚 数据集配置',
+                'dataset-name': '数据集名称：',
+                'task-settings': '🎯 任务设置',
+                'subset': '子集：',
+                'split': '分割：',
+                'task-type': '任务类型：',
+                'scoring-method': '评分方法：',
+                'prompt-templates': '✍️ 提示模板',
+                'prompt-template': '提示模板：',
+                'interactive-mode': '交互模式',
+                'generation-controls': '🚀 生成控制',
+                'generate-eval': '生成评估',
+                'reset-demo': '重置演示',
+                'progress': '进度：',
+                'ready-to-start': '准备开始...',
+                'workflow-title': '⚙️ 8步智能工作流程',
+                'workflow-desc': '我们的智能系统遵循系统性的8步流程来生成高质量的评估：',
+                'step1': '数据集分析',
+                'step1-desc': '分析结构和模式',
+                'step2': '任务检测',
+                'step2-desc': '识别评估类型',
+                'step3': '列映射',
+                'step3-desc': '将数据映射到变量',
+                'step4': '提示工程',
+                'step4-desc': '生成最优提示',
+                'step5': '评分策略',
+                'step5-desc': '选择评分方法',
+                'step6': '代码生成',
+                'step6-desc': '创建评估类',
+                'step7': '验证',
+                'step7-desc': '测试和验证代码',
+                'step8': '注册',
+                'step8-desc': '在框架中注册',
+                'benchmarks-title': '📊 基准测试结果',
+                'benchmarks-desc': '最新语言模型在多个评估基准上的性能比较：',
+                'model': '模型',
+                'prompt': '提示',
+                'assistant': '助手',
+                'example-code-title': '💻 示例生成代码',
+                'example-code-desc': '以下是我们的系统为典型数据集生成的代码：',
+                'framework-advantages': '🎯 框架优势',
+                'speed': '⚡ 速度',
+                'speed-desc': '在几分钟内生成评估，而不是几小时的手动编码。',
+                'accuracy': '🎯 准确性',
+                'accuracy-desc': 'AI代理确保正确的任务检测和评分方法选择。',
+                'flexibility': '🔧 灵活性',
+                'flexibility-desc': '支持自定义提示、评分方法和数据集配置。',
+                'scalability': '📈 可扩展性',
+                'scalability-desc': '批处理和检查点功能支持大规模评估。'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the correct button
+            const targetBtn = document.querySelector(`.lang-btn[onclick="switchLanguage('${lang}')"]`);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Save language preference
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Detect browser language
+        function detectBrowserLanguage() {
+            // Get browser language
+            const browserLang = navigator.language || navigator.languages[0] || 'en';
+            
+            // Check if browser language is Chinese (any variant)
+            if (browserLang.toLowerCase().startsWith('zh')) {
+                return 'zh';
+            }
+            
+            // Default to English for all other languages
+            return 'en';
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Priority: saved preference > browser language > default (en)
+            const savedLang = localStorage.getItem('preferred-language');
+            const browserLang = detectBrowserLanguage();
+            const defaultLang = savedLang || browserLang;
+            
+            // Switch to detected/saved language
+            switchLanguage(defaultLang);
+        });
+
         // Tab functionality
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
