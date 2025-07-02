@@ -63,6 +63,7 @@ This fork introduces a powerful **Agentic Evaluation Generation** system that ca
 ### Key Features
 
 - **Automatic Dataset Analysis**: Intelligently analyzes dataset structure, column types, and content patterns
+- **Automatic Config Discovery**: Attempts to select the most relevant dataset configuration and split when not provided
 - **Smart Template Selection**: Automatically selects the most appropriate evaluation template based on task type (multiple choice, math, reading comprehension, code generation, etc.)
 - **Custom Prompt Templates**: Full support for custom prompt templates that can be set during generation or at runtime
 - **Flexible Column Mapping**: Handles complex datasets with automatic column mapping and multi-column context extraction
@@ -120,6 +121,8 @@ eval_code = generator.generate_eval_class(analysis, config)
 - **Factual Q&A** (`factual_qa_style`): SimpleQA-style factual questions
 - **Text Generation** (`text_generation_style`): Open-ended text generation tasks
 - **Classification** (`classification_style`): Category classification tasks
+- **Translation** (`text_generation_style`): Translate text from one language to another
+- **Summarization** (`text_generation_style`): Summarize text passages
 
 ### Custom Prompt Templates
 

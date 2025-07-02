@@ -27,6 +27,8 @@ class TaskTypeDetector:
             "code_generation": "humaneval_style",
             "factual_qa": "simpleqa_style",
             "text_generation": "simpleqa_style",
+            "translation": "simpleqa_style",
+            "summarization": "simpleqa_style",
         }
         
         return type_mapping.get(analysis.task_type, "generic_style") 

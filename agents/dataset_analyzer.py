@@ -8,7 +8,7 @@ HuggingFace datasets and determining their structure and content.
 import json
 import re
 from typing import Any, Dict, List, Optional
-from datasets import load_dataset
+from datasets import load_dataset, get_dataset_config_names
 
 from eval_types import SamplerBase
 from data_models import DatasetAnalysis
@@ -38,56 +38,95 @@ class DatasetAnalyzer:
             error_msg = str(e).lower()
             if "config name is missing" in error_msg or "pick one among" in error_msg:
                 requires_config = True
-                # Try to extract available configs from error message
+                available_configs = []
+                # Try to extract config names from error message first
                 if "pick one among" in error_msg:
-                    # Extract config names from error message
-                    import re
-                    config_match = re.search(r"\['([^']+)'(?:,\s*'([^']+)')*\]", str(e))
-                    if config_match and not subset:
-                        # Use the first available config as default
-                        available_configs = re.findall(r"'([^']+)'", str(e))
-                        if available_configs:
-                            # Choose the most appropriate config for Q&A tasks
-                            preferred_configs = ['question-answer', 'qa', 'test', 'train', 'validation']
-                            actual_subset = None
-                            for preferred in preferred_configs:
-                                for config in available_configs:
-                                    if preferred in config.lower():
-                                        actual_subset = config
-                                        break
-                                if actual_subset:
-                                    break
-                            
-                            # If no preferred config found, use the first one
-                            if not actual_subset:
-                                actual_subset = available_configs[0]
-                            
-                            print(f"📋 Dataset requires config. Using '{actual_subset}' from available: {available_configs}")
+                    config_match = re.findall(r"'([^']+)'", str(e))
+                    available_configs.extend(config_match)
+                # Fallback: use huggingface hub to get config names
+                if not available_configs:
+                    try:
+                        available_configs = get_dataset_config_names(dataset_name)
+                    except Exception:
+                        available_configs = []
+
+                if available_configs:
+                    # Choose the most appropriate config for Q&A tasks
+                    preferred_configs = [
+                        "question-answer",
+                        "qa",
+                        "test",
+                        "train",
+                        "validation",
+                    ]
+                    actual_subset = None
+                    for preferred in preferred_configs:
+                        for config in available_configs:
+                            if preferred in config.lower():
+                                actual_subset = config
+                                break
+                        if actual_subset:
+                            break
+
+                    if not actual_subset:
+                        actual_subset = available_configs[0]
+
+                    print(
+                        f"📋 Dataset requires config. Using '{actual_subset}' from available: {available_configs}"
+                    )
+                    try:
+                        dataset = load_dataset(dataset_name, actual_subset, split=split)
+                    except Exception as retry_e:
+                        # If split fails, try common split names
+                        common_splits = ["test", "train", "validation", "dev"]
+                        dataset = None
+                        for test_split in common_splits:
                             try:
-                                # Try the original split first
-                                dataset = load_dataset(dataset_name, actual_subset, split=split)
-                            except Exception as retry_e:
-                                # If split fails, try common split names
-                                common_splits = ['test', 'train', 'validation', 'dev']
-                                dataset = None
-                                for test_split in common_splits:
-                                    try:
-                                        dataset = load_dataset(dataset_name, actual_subset, split=test_split)
-                                        print(f"   → Using split '{test_split}' instead of '{split}'")
-                                        split = test_split  # Update split for return value
-                                        break
-                                    except:
-                                        continue
-                                if dataset is None:
-                                    raise ValueError(f"Could not load dataset {dataset_name} with config {actual_subset}: {retry_e}")
-                        else:
-                            raise ValueError(f"Could not extract config names from error: {e}")
-                    else:
-                        raise ValueError(f"Dataset {dataset_name} requires config but none provided. Error: {e}")
+                                dataset = load_dataset(dataset_name, actual_subset, split=test_split)
+                                print(
+                                    f"   → Using split '{test_split}' instead of '{split}'"
+                                )
+                                split = test_split
+                                break
+                            except Exception:
+                                continue
+                        if dataset is None:
+                            raise ValueError(
+                                f"Could not load dataset {dataset_name} with config {actual_subset}: {retry_e}"
+                            )
+                else:
+                    raise ValueError(
+                        f"Dataset {dataset_name} requires config but none provided and no configs discovered. Error: {e}"
+                    )
+            else:
+                # Try to auto-discover configs and splits using the hub as a last resort
+                try:
+                    config_names = get_dataset_config_names(dataset_name)
+                except Exception:
+                    config_names = []
+                if config_names:
+                    actual_subset = config_names[0]
+                    try:
+                        dataset = load_dataset(dataset_name, actual_subset, split=split)
+                    except Exception as retry_e:
+                        common_splits = ["test", "train", "validation", "dev"]
+                        dataset = None
+                        for test_split in common_splits:
+                            try:
+                                dataset = load_dataset(dataset_name, actual_subset, split=test_split)
+                                print(
+                                    f"   → Using split '{test_split}' instead of '{split}'"
+                                )
+                                split = test_split
+                                break
+                            except Exception:
+                                continue
+                        if dataset is None:
+                            raise ValueError(
+                                f"Could not load dataset {dataset_name} with auto-discovered config {actual_subset}: {retry_e}"
+                            )
                 else:
                     raise ValueError(f"Could not load dataset {dataset_name}: {e}")
-            else:
-                raise ValueError(f"Could not load dataset {dataset_name}: {e}")
         
         # Get basic info
         columns = dataset.column_names
@@ -126,7 +165,16 @@ class DatasetAnalyzer:
         
         # If no valid input columns found, try to infer common ones
         if not valid_input_cols:
-            common_input_names = ['question', 'prompt', 'input', 'text', 'context', 'query']
+            common_input_names = [
+                'question',
+                'prompt',
+                'input',
+                'text',
+                'context',
+                'query',
+                'source',
+                'sentence',
+            ]
             for name in common_input_names:
                 if name in actual_columns:
                     valid_input_cols = [name]
@@ -138,7 +186,15 @@ class DatasetAnalyzer:
         
         # If no valid target columns found, try to infer common ones
         if not valid_target_cols:
-            common_target_names = ['answer', 'target', 'label', 'output', 'solution']
+            common_target_names = [
+                'answer',
+                'target',
+                'label',
+                'output',
+                'solution',
+                'reference',
+                'ground_truth',
+            ]
             for name in common_target_names:
                 if name in actual_columns:
                     valid_target_cols = [name]
@@ -167,7 +223,7 @@ Sample Data:
 {sample_str}
 
 Please analyze this dataset and respond with a JSON object containing:
-1. "task_type": One of ["multiple_choice", "text_generation", "classification", "reading_comprehension", "code_generation", "math", "factual_qa", "other"]
+1. "task_type": One of ["multiple_choice", "text_generation", "classification", "reading_comprehension", "code_generation", "math", "factual_qa", "translation", "summarization", "other"]
 2. "input_columns": List of column names that contain the input/question
 3. "target_columns": List of column names that contain the correct answer/target
 4. "metadata": Object with additional relevant information like:
@@ -214,5 +270,9 @@ Respond with only the JSON object, no additional text.
             result["task_type"] = "code_generation"
         elif "reading" in response.lower() or "comprehension" in response.lower():
             result["task_type"] = "reading_comprehension"
+        elif "translation" in response.lower() or "translate" in response.lower():
+            result["task_type"] = "translation"
+        elif "summary" in response.lower() or "summarization" in response.lower():
+            result["task_type"] = "summarization"
         
         return result 
